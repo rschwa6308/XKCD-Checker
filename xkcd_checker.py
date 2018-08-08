@@ -1,10 +1,10 @@
-import urllib
+import urllib.request
 from win10toast import ToastNotifier
 
 
 # fetch html source and parse to find comic title
 def get_comic():
-    source = urllib.urlopen("http://xkcd.com").read()
+    source = str(urllib.request.urlopen("http://xkcd.com").read())
 
     title = source[source.index("<title>") + 7:source.index("</title>")][6:]
 
@@ -12,7 +12,7 @@ def get_comic():
 
 
 def get_whatif():
-    source = source = urllib.urlopen("https://what-if.xkcd.com/").read()
+    source = str(urllib.request.urlopen("https://what-if.xkcd.com/").read())
 
     header = source[source.index("<h1>") + 4:source.index("</h1>")]
 
@@ -48,8 +48,7 @@ if __name__ == "__main__":
         comic_log.write(current_comic)  # write current title to file
         toaster.show_toast("XKCD", "New Comic!\nTitle: \"" + current_comic + "\"", icon_path, 10)
 
-    print
-    ""
+    print("")
 
     if latest_whatif == current_whatif:
         # print "No new WhatIf"
